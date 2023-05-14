@@ -3,7 +3,7 @@ import { Country } from '../types/country'
 
 export const getCountryInfo = async (nameOrId: string) => {
     try {
-        const { data } = await axios.get<Country>(`http://localhost:3000/country/${nameOrId}`);
+        const { data } = await axios.get<Country>(`${process.env.API_URL}/country/${nameOrId}`);
 
         return {
             id: data.id,
@@ -13,7 +13,5 @@ export const getCountryInfo = async (nameOrId: string) => {
         }
     } catch (error) {
         return null;
-    }
-
-    
+    }    
 }

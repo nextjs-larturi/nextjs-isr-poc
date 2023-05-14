@@ -18,7 +18,7 @@
 
     yarn build
 
-    yarn start
+    yarn start --port=3001
 ```
 
 #### To test the revalidate, edit the countries array in /server/index.js and wait a minute

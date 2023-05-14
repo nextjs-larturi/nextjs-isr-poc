@@ -39,7 +39,7 @@ const Home: NextPage<Props> = ({ countries, apiUrl }) => {
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const { data } = await axios.get<Country[]>('http://localhost:3000/country');
+  const { data } = await axios.get<Country[]>(`${process.env.API_URL}/country`);
 
   return {
     props: {
