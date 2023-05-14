@@ -1,4 +1,4 @@
-
+import { useState, useEffect } from 'react';
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -7,21 +7,41 @@ import { Country } from '../types/country';
 import CountryCard from '../components/CountryCard';
 import PageCard from '../components/PageCard';
 
+const REVALIDATE_SSR_SECONDS = 10;
+
 interface Props {
    countries: Country[];
    staticPagesPathId: [];
    staticPagesPathName: [];
    apiUrl: string;
+   nextRefresh: number;
 }
 
-const Home: NextPage<Props> = ({ 
-    countries, 
-    apiUrl, 
-    staticPagesPathId, 
-    staticPagesPathName
+const Home: NextPage<Props> = ({
+   countries,
+   apiUrl,
+   staticPagesPathId,
+   staticPagesPathName,
+   nextRefresh,
 }) => {
-
    const router = useRouter();
+
+   const [secondsLeft, setSecondsLeft] = useState<number | null>(null);
+
+   useEffect(() => {
+      const timer = setInterval(() => {
+        let elapsedSeconds = Math.floor((nextRefresh - Date.now()) / 1000);
+        
+        if (elapsedSeconds <= 0) { // Agrega una condición para detener el temporizador
+         clearInterval(timer);
+         location.reload();
+       } else {
+         setSecondsLeft(elapsedSeconds);
+       }
+      }, 1000);
+    
+      return () => clearInterval(timer);
+    }, [nextRefresh, router, secondsLeft]);   
 
    return (
       <div className='container mx-auto px-4 pt-8'>
@@ -31,9 +51,10 @@ const Home: NextPage<Props> = ({
          </Head>
 
          <div className='flex flex-row justify-between mb-8'>
-           <h1 className='text-3xl'>Next ISR PoC</h1>
-           <div>
-               <button 
+            <h1 className='text-3xl'>Next ISR PoC</h1>
+
+            <div>
+               <button
                   className='
                      bg-blue-600
                      py-3
@@ -91,6 +112,41 @@ const Home: NextPage<Props> = ({
                   ))}
                </div>
             </div>
+
+            <div className='flex flex-col items-center'>
+               <h2 className='text-xl mt-6'>ISR Revalidate</h2>
+               <p
+                  className='
+                  text-sm 
+                  text-gray-500 
+                  w-[300px] 
+                  text-center
+               '
+               >
+                  Next revalidate in:
+               </p>
+
+               {secondsLeft !== null && (
+                  <>
+                     <div
+                        className='
+                           mt-4
+                           text-4xl
+                           bg-orange-500
+                           text-center
+                           rounded-full 
+                           w-[90px] 
+                           h-[90px]
+                           flex
+                           items-center
+                           justify-center
+                        '
+                     >
+                        <p>{secondsLeft}</p>
+                     </div>
+                  </>
+               )}
+            </div>
          </div>
       </div>
    );
@@ -105,11 +161,23 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
    let staticPagesPathName: string[] = [];
 
    data.map((country) => {
-     staticPagesPathId.push(`.next/server/pages/country/id/${country.id}.json`);
-     staticPagesPathId.push(`.next/server/pages/country/id/${country.id}.html`);
-     staticPagesPathName.push(`.next/server/pages/country/${country.name.toLowerCase()}.json`);
-     staticPagesPathName.push(`.next/server/pages/country/${country.name.toLowerCase()}.html`);
+      staticPagesPathId.push(
+         `.next/server/pages/country/id/${country.id}.json`
+      );
+      staticPagesPathId.push(
+         `.next/server/pages/country/id/${country.id}.html`
+      );
+      staticPagesPathName.push(
+         `.next/server/pages/country/${country.name.toLowerCase()}.json`
+      );
+      staticPagesPathName.push(
+         `.next/server/pages/country/${country.name.toLowerCase()}.html`
+      );
    });
+
+   const lastRefresh = Date.now();
+   let nextRefresh = new Date(lastRefresh);
+   nextRefresh.setSeconds(nextRefresh.getSeconds() + REVALIDATE_SSR_SECONDS + 1);
 
    return {
       props: {
@@ -117,8 +185,9 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
          staticPagesPathId: staticPagesPathId,
          staticPagesPathName: staticPagesPathName,
          apiUrl: process.env.API_URL,
+         nextRefresh: Number(nextRefresh),
       },
-      revalidate: 60, // 60 seconds
+      revalidate: REVALIDATE_SSR_SECONDS
    };
 };
 
