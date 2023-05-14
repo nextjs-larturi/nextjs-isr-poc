@@ -18,7 +18,7 @@ const Home: NextPage<Props> = ({
     countries, 
     apiUrl, 
     staticPagesPathId, 
-    staticPagesPathName 
+    staticPagesPathName
 }) => {
 
    const router = useRouter();
