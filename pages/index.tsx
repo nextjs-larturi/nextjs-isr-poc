@@ -107,8 +107,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
    data.map((country) => {
      staticPagesPathId.push(`.next/server/pages/country/id/${country.id}.json`);
      staticPagesPathId.push(`.next/server/pages/country/id/${country.id}.html`);
-     staticPagesPathName.push(`.next/server/pages/country/${country.name}.json`);
-     staticPagesPathName.push(`.next/server/pages/country/${country.name}.html`);
+     staticPagesPathName.push(`.next/server/pages/country/${country.name.toLowerCase()}.json`);
+     staticPagesPathName.push(`.next/server/pages/country/${country.name.toLowerCase()}.html`);
    });
 
    return {

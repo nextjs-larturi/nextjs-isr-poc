@@ -38,7 +38,7 @@ const CountryByNamePage: NextPage<Props> = ({ country, apiUrl }) => {
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
   const { data } = await axios.get<Country[]>(`${process.env.API_URL}/country`);
-  const countryNames: string[] = data.map( country => country.name );
+  const countryNames: string[] = data.map( country => country.name.toLowerCase() );
 
   return {
     paths: countryNames.map((name) => ({ params: { name } })),
