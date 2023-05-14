@@ -6,6 +6,10 @@ const app = express();
 
 app.use(cors());
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.get('/country', (req, res) => {
    res.json(countriesDb);
 });
@@ -34,6 +38,8 @@ app.get('/country/:nameOrId', (req, res) => {
 
 app.post('/country', (req, res) => {
    const { name, population, continent } = req.body;
+
+   console.log(req.body)
 
    if (!name || !population || !continent) {
       return res
