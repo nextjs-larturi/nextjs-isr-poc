@@ -7,13 +7,13 @@ interface Props {
 
 const CountryCard: React.FC<Props> = ({ country }) => {
   return (
-    <div className="bg-black rounded-lg shadow-lg p-4 mb-3 w-1/5">
-      <h2 className="text-2xl font-bold text-blue-600">
+    <div className="bg-black rounded-lg shadow-lg px-4 py-2 mb-3">
+      <h2 className="text-xl font-bold text-blue-600">
         {country.name.charAt(0).toUpperCase() + country.name.slice(1)}
       </h2>
       <div className="text-white">
-        <p>Población: {country.population}</p>
-        <p>Continente: {country.continent}</p>
+        <p className='text-sm'>Population: {country.population}</p>
+        <p className='text-sm'>Continent: {country.continent}</p>
       </div>
     </div>
   )
