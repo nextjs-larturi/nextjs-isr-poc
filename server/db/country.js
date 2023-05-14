@@ -23,18 +23,18 @@ const countriesDb = [
        population: 67059887,
        continent: 'Europe',
     },
-    // {
-    //    id: 5,
-    //    name: 'mexico',
-    //    population: 130222815,
-    //    continent: 'North America',
-    // },
-    // {
-    //    id: 6,
-    //    name: 'argentina',
-    //    population: 50000000,
-    //    continent: 'South America',
-    // },
+    {
+       id: 5,
+       name: 'mexico',
+       population: 130222815,
+       continent: 'North America',
+    },
+    {
+       id: 6,
+       name: 'argentina',
+       population: 50000000,
+       continent: 'South America',
+    },
  ];
 
  module.exports = countriesDb;

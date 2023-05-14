@@ -1,7 +1,7 @@
-import fs from 'fs';
-import path from 'path';
+
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import axios from 'axios';
 import { Country } from '../types/country';
 import CountryCard from '../components/CountryCard';
@@ -20,6 +20,9 @@ const Home: NextPage<Props> = ({
     staticPagesPathId, 
     staticPagesPathName 
 }) => {
+
+   const router = useRouter();
+
    return (
       <div className='container mx-auto px-4 pt-8'>
          <Head>
@@ -27,9 +30,23 @@ const Home: NextPage<Props> = ({
             <link rel='icon' href='/favicon.ico' />
          </Head>
 
-         <div>
+         <div className='flex flex-row justify-between mb-8'>
            <h1 className='text-3xl'>Next ISR PoC</h1>
-            <hr />
+           <div>
+               <button 
+                  className='
+                     bg-blue-600
+                     py-3
+                     px-5
+                     rounded
+                     pointer
+                     hover:bg-blue-800
+                  '
+                  onClick={() => router.push('/admin')}
+               >
+                  Admin DB
+               </button>
+            </div>
          </div>
 
          <div className='flex flex-row justify-start gap-10'>
@@ -74,7 +91,6 @@ const Home: NextPage<Props> = ({
                   ))}
                </div>
             </div>
-
          </div>
       </div>
    );
