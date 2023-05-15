@@ -7,7 +7,7 @@ import CountryCard from '../components/CountryCard';
 import PageCard from '../components/PageCard';
 import Header from '../components/Header';
 
-const REVALIDATE_SSR_SECONDS = 10;
+const REVALIDATE_SSR_SECONDS = 20;
 
 interface Props {
    countries: Country[];
