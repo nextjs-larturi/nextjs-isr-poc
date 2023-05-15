@@ -14,6 +14,8 @@
 
 ### <https://github.com/larturi/next-isr-poc>
 
+- Use node v18
+
 ```bash
     yarn
 
