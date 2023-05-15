@@ -51,7 +51,13 @@ const Home: NextPage<Props> = ({
             title="Next ISR PoC" 
          />
 
-         <div className='flex flex-row justify-start gap-10'>
+         <div className='
+            flex 
+            flex-col
+            md:flex-row 
+            justify-start
+            md:gap-10
+         '>
             <div>
                <h2 className='text-xl mt-6'>List of Countries</h2>
                <p className='text-sm text-gray-500'>
@@ -94,8 +100,14 @@ const Home: NextPage<Props> = ({
                </div>
             </div>
 
-            <div className='flex flex-col items-center'>
-               <h2 className='text-xl mt-6'>ISR Revalidate</h2>
+            <div className='
+               flex 
+               flex-col 
+               items-center
+               order-first 
+               md:order-last
+            '>
+               <h2 className='text-xl mt-3 md:mt-6'>ISR Revalidate</h2>
                <p
                   className='
                   text-sm 

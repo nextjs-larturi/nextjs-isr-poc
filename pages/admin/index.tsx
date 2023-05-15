@@ -83,42 +83,64 @@ const AdminPage: NextPage<Props> = ({ apiUrl = '' }) => {
    }
 
    return (
-      <div className='container mx-auto px-4 pt-10'>
+      <div className='container mx-auto px-4 md:pt-10'>
          <Head>
             <title>Next ISR PoC - Admin DB</title>
             <link rel='icon' href='/favicon.ico' />
          </Head>
 
-         <div className='flex flex-row justify-between'>
-            <div className='mt-7'>
-               <h1 className='text-3xl'>Admin DB</h1>
-               <h2 className='text-lg text-gray-400'>Next ISR PoC</h2>
-            </div>
+         <div className='
+            flex 
+            flex-col
+            md:flex-row 
+            justify-between
+         '>
 
-            <div className='mt-9'>
-               <button
-                  type='button'
-                  className='
-                     bg-orange-500 
-                     text-white 
-                     py-0
-                     px-4 
-                     rounded
-                     h-11
-                  '
-                  onClick={handleRunSeedDb}
-               >
-                  Regenerate DB
-               </button>
+            <div className='
+               flex
+               flex-row
+               justify-between
+            '>
+               <div className='mt-7'>
+                  <h1 className='text-3xl'>Admin DB</h1>
+                  <h2 className='text-lg text-gray-400'>Next ISR PoC</h2>
+               </div>
+
+               <div className='md:mt-9'>
+                  <button
+                     type='button'
+                     className='
+                        bg-orange-500 
+                        text-white 
+                        py-0
+                        px-4 
+                        rounded
+                        h-11
+                        ml-16
+                        mt-10
+                        md:mt-0
+                     '
+                     onClick={handleRunSeedDb}
+                  >
+                     Regenerate DB
+                  </button>
+               </div>
             </div>
 
             <div>
-               <h3 className='text-xl'>Add new country:</h3>
+               <h3 className='text-xl mt-4 md:mt-0'>Add new country:</h3>
                <form
                   onSubmit={handleNewCountrySubmit}
-                  className='mt-3 flex flex-row justify-left gap-5'
+                  className='
+                     mt-3 
+                     flex 
+                     flex-col
+                     md:flex-row 
+                     justify-left 
+                     gap-5
+                  '
                >
-                  <div className='mb-4'>
+                  <div className='mb-1 md:mb-4'>
                      <input
                         type='text'
                         placeholder='Name'
@@ -127,11 +149,11 @@ const AdminPage: NextPage<Props> = ({ apiUrl = '' }) => {
                         value={newCountry.name}
                         onChange={handleNewCountryChange}
                         required
-                        className='border rounded px-3 py-2 mb-1 text-black'
+                        className='border rounded px-3 py-2 text-black w-full'
                      />
                   </div>
 
-                  <div className='mb-4'>
+                  <div className='mb-1 md:mb-4'>
                      <input
                         type='number'
                         placeholder='Population'
@@ -140,11 +162,11 @@ const AdminPage: NextPage<Props> = ({ apiUrl = '' }) => {
                         value={newCountry.population}
                         onChange={handleNewCountryChange}
                         required
-                        className='border rounded px-3 py-2 mb-1 text-black'
+                        className='border rounded px-3 py-2 text-black w-full'
                      />
                   </div>
 
-                  <div className='mb-4'>
+                  <div className='mb-1 md:mb-4'>
                      <input
                         type='text'
                         placeholder='Continent'
@@ -153,7 +175,7 @@ const AdminPage: NextPage<Props> = ({ apiUrl = '' }) => {
                         value={newCountry.continent}
                         onChange={handleNewCountryChange}
                         required
-                        className='border rounded px-3 py-2 mb-1 text-black'
+                        className='border rounded px-3 py-2 text-black w-full'
                      />
                   </div>
 
@@ -167,7 +189,7 @@ const AdminPage: NextPage<Props> = ({ apiUrl = '' }) => {
             </div>
          </div>
 
-         <div className='flex flex-row justify-start gap-10 mt-10'>
+         <div className='flex flex-row justify-start gap-10 mt-6 md:mt-10'>
             <div className='container mx-auto'>
                {countries.map((country) => (
                   <CountryCard
