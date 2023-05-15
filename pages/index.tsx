@@ -44,7 +44,7 @@ const Home: NextPage<Props> = ({
     }, [nextRefresh, router, secondsLeft]);   
 
    return (
-      <div className='container mx-auto px-4 pt-8'>
+      <div className='container mx-auto pt-8 p-5 md:px-0'>
          
          <Header 
             showButtonAdminDb 
@@ -56,11 +56,12 @@ const Home: NextPage<Props> = ({
             flex-col
             md:flex-row 
             justify-start
-            md:gap-10
+            md:gap-7
+            gap-2
          '>
             <div>
                <h2 className='text-xl mt-6'>List of Countries</h2>
-               <p className='text-sm text-gray-500'>
+               <p className='text-sm text-gray-500 md:w-[330px]'>
                   <a
                      href={`${apiUrl}/country`}
                      target='_blank'
@@ -112,7 +113,7 @@ const Home: NextPage<Props> = ({
                   className='
                   text-sm 
                   text-gray-500 
-                  w-[300px] 
+                  md:w-[240px] 
                   text-center
                '
                >

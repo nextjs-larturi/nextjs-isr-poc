@@ -2,15 +2,17 @@
 
 # Server Node.js
 
-```bash
-    cd server
+### <https://github.com/larturi/next-isr-poc-server-node>
 
+```bash
     npm install
 
-    npm start
+    npm start --port=3000
 ```
 
 # Client Next.js
+
+### <https://github.com/larturi/next-isr-poc>
 
 ```bash
     yarn
