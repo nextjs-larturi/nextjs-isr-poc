@@ -172,8 +172,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
    let nextRefresh = new Date(lastRefresh);
    nextRefresh.setSeconds(nextRefresh.getSeconds() + REVALIDATE_SSR_SECONDS + 1);
 
-   await axios.get(`${process.env.API_URL}/seed`);
-   console.log('Data Base Generated');
+   // await axios.get(`${process.env.API_URL}/seed`);
+   // console.log('Data Base Generated');
 
    return {
       props: {
