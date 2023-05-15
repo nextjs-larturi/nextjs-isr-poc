@@ -120,7 +120,7 @@ const Home: NextPage<Props> = ({
                   Next revalidate in:
                </p>
 
-               {secondsLeft !== null && (
+               {secondsLeft !== null ? (
                   <>
                      <div
                         className='
@@ -139,6 +139,10 @@ const Home: NextPage<Props> = ({
                         <p>{secondsLeft}</p>
                      </div>
                   </>
+               ) : (
+                  <div>
+                     <p className='mt-12 text-sm'>Revalidating...</p>
+                  </div>
                )}
             </div>
          </div>
