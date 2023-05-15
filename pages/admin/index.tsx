@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { GetStaticProps, NextPage } from 'next';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import axios from 'axios';
 import { Country } from '../../types/country';
@@ -10,6 +11,9 @@ interface Props {
 }
 
 const AdminPage: NextPage<Props> = ({ apiUrl = '' }) => {
+
+   const router = useRouter();
+
    const [countries, setCountries] = useState<Country[]>([]);
 
    const [newCountry, setNewCountry] = useState<Country>({
@@ -69,6 +73,15 @@ const AdminPage: NextPage<Props> = ({ apiUrl = '' }) => {
       }
    };
 
+   const handleRunSeedDb = async () => {
+      try {
+         await axios.get(`${apiUrl}/seed`);
+         router.reload();
+      } catch (error) {
+         console.error('Error running seed', error);
+      }
+   }
+
    return (
       <div className='container mx-auto px-4 pt-10'>
          <Head>
@@ -78,7 +91,25 @@ const AdminPage: NextPage<Props> = ({ apiUrl = '' }) => {
 
          <div className='flex flex-row justify-between'>
             <div className='mt-7'>
-               <h1 className='text-3xl'>Next ISR PoC - Admin DB</h1>
+               <h1 className='text-3xl'>Admin DB</h1>
+               <h2 className='text-lg text-gray-400'>Next ISR PoC</h2>
+            </div>
+
+            <div className='mt-9'>
+               <button
+                  type='button'
+                  className='
+                     bg-orange-500 
+                     text-white 
+                     py-0
+                     px-4 
+                     rounded
+                     h-11
+                  '
+                  onClick={handleRunSeedDb}
+               >
+                  Regenerate DB
+               </button>
             </div>
 
             <div>
@@ -145,13 +176,6 @@ const AdminPage: NextPage<Props> = ({ apiUrl = '' }) => {
                      showDeleteButton
                      onDelete={handleDelete}
                   />
-
-                  // <button
-                  //          className='text-red-500'
-                  //          onClick={() => handleDelete(country.id)}
-                  //       >
-                  //          Delete
-                  //       </button>
                ))}
             </div>
          </div>

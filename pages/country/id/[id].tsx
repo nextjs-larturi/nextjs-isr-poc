@@ -3,6 +3,7 @@ import { Country } from '../../../types/country';
 import { getCountryInfo } from '../../../utils/getCountryInfo';
 import Head from 'next/head';
 import CountryCard from '../../../components/CountryCard';
+import Header from '../../../components/Header';
 
 interface Props {
   country: Country;
@@ -12,14 +13,12 @@ interface Props {
 const CountryPage: NextPage<Props> = ({ country, apiUrl }) => {
   return (
     <div className='container mx-auto px-4 pt-8'>
-        <Head>
-          <title>Next ISR PoC</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+        <Header 
+            showButtonAdminDb 
+            title="Next ISR PoC" 
+         />
 
         <div className='flex flex-col justify-center'>
-          <h1 className='text-3xl'>Next ISR PoC</h1>
-          <hr />
           <h2 className='text-xl mt-6'>Country By Id</h2>
           <p className='text-sm text-gray-500'>
             <a href={`${apiUrl}/country/${country.id}`} target="_blank" rel="noopener noreferrer">

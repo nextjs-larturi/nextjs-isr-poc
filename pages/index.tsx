@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import type { GetStaticProps, NextPage } from 'next';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { Country } from '../types/country';
 import CountryCard from '../components/CountryCard';
 import PageCard from '../components/PageCard';
+import Header from '../components/Header';
 
 const REVALIDATE_SSR_SECONDS = 10;
 
@@ -32,7 +32,7 @@ const Home: NextPage<Props> = ({
       const timer = setInterval(() => {
         let elapsedSeconds = Math.floor((nextRefresh - Date.now()) / 1000);
         
-        if (elapsedSeconds <= 0) { // Agrega una condición para detener el temporizador
+        if (elapsedSeconds <= 0) {
          clearInterval(timer);
          location.reload();
        } else {
@@ -45,30 +45,11 @@ const Home: NextPage<Props> = ({
 
    return (
       <div className='container mx-auto px-4 pt-8'>
-         <Head>
-            <title>Next ISR PoC</title>
-            <link rel='icon' href='/favicon.ico' />
-         </Head>
-
-         <div className='flex flex-row justify-between mb-8'>
-            <h1 className='text-3xl'>Next ISR PoC</h1>
-
-            <div>
-               <button
-                  className='
-                     bg-blue-600
-                     py-3
-                     px-5
-                     rounded
-                     pointer
-                     hover:bg-blue-800
-                  '
-                  onClick={() => router.push('/admin')}
-               >
-                  Admin DB
-               </button>
-            </div>
-         </div>
+         
+         <Header 
+            showButtonAdminDb 
+            title="Next ISR PoC" 
+         />
 
          <div className='flex flex-row justify-start gap-10'>
             <div>
