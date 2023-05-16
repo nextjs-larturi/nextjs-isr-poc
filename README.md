@@ -2,7 +2,7 @@
 
 # Server Node.js
 
-### <https://github.com/larturi/next-isr-poc-server-node>
+<https://github.com/larturi/next-isr-poc-server-node>
 
 ```bash
     npm install
@@ -12,7 +12,7 @@
 
 # Client Next.js
 
-### <https://github.com/larturi/next-isr-poc>
+<https://github.com/larturi/next-isr-poc>
 
 - Use node v18
 
