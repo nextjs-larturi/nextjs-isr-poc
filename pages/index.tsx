@@ -45,9 +45,9 @@ const Home: NextPage<Props> = ({
    }, [nextRefresh, router, secondsLeft]);
 
    const handleRegenerate = async () => {
-      // 
-      await axios.get(`/api/revalidate-public`);
-      router.reload();
+      axios.get(`/api/revalidate-public`).then(() => {
+         router.reload();
+      })  
    };
 
    return (
