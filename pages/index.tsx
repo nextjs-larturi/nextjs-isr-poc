@@ -7,6 +7,8 @@ import CountryCard from '../components/CountryCard';
 import PageCard from '../components/PageCard';
 import Header from '../components/Header';
 import Countdown from '../components/Countdown';
+import ListStaticPages from '../components/ListStaticPages';
+import ListCountries from '../components/ListCountries';
 
 const REVALIDATE_SSR_SECONDS = 30;
 
@@ -42,14 +44,6 @@ const Home: NextPage<Props> = ({
       return () => clearInterval(timer);
    }, [nextRefresh, router, secondsLeft]);
 
-   const handleRegenerate = async () => {
-      await axios.get(`/api/revalidate?secret=diypkqZN35OIteEzpszu`);
-
-      setTimeout(() => {
-         router.reload();
-      }, 1000);
-   };
-
    return (
       <div className='container mx-auto pt-8 p-5 md:px-0'>
          <Header showButtonAdminDb title='Next ISR PoC' />
@@ -58,72 +52,22 @@ const Home: NextPage<Props> = ({
             className='
             flex 
             flex-col
-            md:flex-row 
+            lg:flex-row 
             justify-center
-            md:gap-24
-            md:mt-16
+            lg:gap-12
+            lg:mt-16
             gap-2
          '
          >
             {/* List of Countries */}
-            <div>
-               <h2 className='text-xl mt-6'>List of Countries</h2>
-               <p className='text-sm text-gray-500 md:w-[330px]'>
-                  <a
-                     href={`${apiUrl}/country`}
-                     target='_blank'
-                     rel='noopener noreferrer'
-                  >
-                     {`${apiUrl}/country`}
-                  </a>
-               </p>
-               <div className='mt-3'>
-                  {countries.map((country) => (
-                     <CountryCard key={country.id} country={country} />
-                  ))}
-               </div>
-            </div>
+            <ListCountries apiUrl={apiUrl} countries={countries} /> 
 
             {/* List of static pages */}
-            <div>
-               <h2 className='text-xl mt-6'>Static Pages</h2>
-               <p className='text-sm text-gray-500'>
-                  {`.next/server/pages/country`}
-               </p>
-               <div className='mt-3'>
-                  {staticPagesPathName.map((page) => (
-                     <PageCard key={page} page={page} />
-                  ))}
-               </div>
-            </div>
+            <ListStaticPages staticPagesPathName={staticPagesPathName} />
 
             {/* Countdown */}
-            <div
-               className='
-               md:order-last 
-               order-first
-            '
-            >
+            <div className='md:order-last order-first'>
                <Countdown secondsLeft={secondsLeft} />
-               <div className='flex justify-center'>
-                  <button
-                     onClick={handleRegenerate}
-                     className='
-                        bg-transparent 
-                        border 
-                        border-green-500 
-                        text-green-500 
-                        hover:bg-green-500 
-                        hover:text-white
-                        py-1 
-                        px-3 
-                        rounded
-                        mt-6
-                     '
-                  >
-                     Force Regeneration
-                  </button>
-               </div>
             </div>
          </div>
       </div>
