@@ -43,9 +43,11 @@ const Home: NextPage<Props> = ({
    }, [nextRefresh, router, secondsLeft]);
 
    const handleRegenerate = async () => {
-      axios.get(`/api/revalidate-public`).then(() => {
+      await axios.get(`/api/revalidate?secret=diypkqZN35OIteEzpszu`);
+
+      setTimeout(() => {
          router.reload();
-      })  
+      }, 1000);
    };
 
    return (
