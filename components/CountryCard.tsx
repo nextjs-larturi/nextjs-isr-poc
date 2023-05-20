@@ -20,7 +20,7 @@ const CountryCard: React.FC<Props> = ({ country, showDeleteButton, onDelete }) =
          <div>
             <h2 className='text-xl font-bold text-blue-600'>
                <a
-                  href={`/country/id/${country.id}`}
+                  href={`/country/${country.name.toLowerCase()}`}
                   target='_blank'
                   rel='noopener noreferrer'
                >

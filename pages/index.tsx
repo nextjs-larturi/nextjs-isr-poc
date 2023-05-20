@@ -12,7 +12,6 @@ const REVALIDATE_SSR_SECONDS = 30;
 
 interface Props {
    countries: Country[];
-   staticPagesPathId: [];
    staticPagesPathName: [];
    apiUrl: string;
    nextRefresh: number;
@@ -21,7 +20,6 @@ interface Props {
 const Home: NextPage<Props> = ({
    countries,
    apiUrl,
-   staticPagesPathId,
    staticPagesPathName,
    nextRefresh,
 }) => {
@@ -59,11 +57,13 @@ const Home: NextPage<Props> = ({
             flex 
             flex-col
             md:flex-row 
-            justify-start
-            md:gap-7
+            justify-center
+            md:gap-24
+            md:mt-16
             gap-2
          '
          >
+            {/* List of Countries */}
             <div>
                <h2 className='text-xl mt-6'>List of Countries</h2>
                <p className='text-sm text-gray-500 md:w-[330px]'>
@@ -82,20 +82,9 @@ const Home: NextPage<Props> = ({
                </div>
             </div>
 
+            {/* List of static pages */}
             <div>
-               <h2 className='text-xl mt-6'>Static Pages (id)</h2>
-               <p className='text-sm text-gray-500'>
-                  {`.next/server/pages/country/id`}
-               </p>
-               <div className='mt-3'>
-                  {staticPagesPathId.map((page) => (
-                     <PageCard key={page} page={page} />
-                  ))}
-               </div>
-            </div>
-
-            <div>
-               <h2 className='text-xl mt-6'>Static Pages (name)</h2>
+               <h2 className='text-xl mt-6'>Static Pages</h2>
                <p className='text-sm text-gray-500'>
                   {`.next/server/pages/country`}
                </p>
@@ -106,6 +95,7 @@ const Home: NextPage<Props> = ({
                </div>
             </div>
 
+            {/* Countdown */}
             <div
                className='
                md:order-last 
@@ -143,21 +133,14 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       `${process.env.API_URL}/country`
    );
 
-   let staticPagesPathId: string[] = [];
    let staticPagesPathName: string[] = [];
 
    data.map((country) => {
-      staticPagesPathId.push(
-         `.next/server/pages/country/id/${country.id}.json`
-      );
-      staticPagesPathId.push(
-         `.next/server/pages/country/id/${country.id}.html`
+      staticPagesPathName.push(
+         `.next/server/pages/country/${country.name.toLowerCase()}.html`
       );
       staticPagesPathName.push(
          `.next/server/pages/country/${country.name.toLowerCase()}.json`
-      );
-      staticPagesPathName.push(
-         `.next/server/pages/country/${country.name.toLowerCase()}.html`
       );
    });
 
@@ -170,7 +153,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
    return {
       props: {
          countries: data,
-         staticPagesPathId: staticPagesPathId,
          staticPagesPathName: staticPagesPathName,
          apiUrl: process.env.API_URL,
          nextRefresh: Number(nextRefresh),
