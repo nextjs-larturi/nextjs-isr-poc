@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
+// https://nextjs.org/docs/pages/building-your-application/data-fetching/incremental-static-regeneration
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Check for secret to confirm this is a valid request
   if (req.query.secret !== process.env.MY_SECRET_TOKEN) {
