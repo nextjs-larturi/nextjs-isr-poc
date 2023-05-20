@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react';
 import type { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { PuffLoader } from 'react-spinners';
 import { Country } from '../types/country';
 import CountryCard from '../components/CountryCard';
 import PageCard from '../components/PageCard';
 import Header from '../components/Header';
 import Countdown from '../components/Countdown';
 
-const REVALIDATE_SSR_SECONDS = 20;
+const REVALIDATE_SSR_SECONDS = 30;
 
 interface Props {
    countries: Country[];
@@ -46,15 +45,9 @@ const Home: NextPage<Props> = ({
    }, [nextRefresh, router, secondsLeft]);
 
    const handleRegenerate = async () => {
-      // const { data: result } = await axios.get('http://localhost:3001/api/refresh');
-      
-      // const data: Country[] = result.data;
-      // const staticPagesPathId: string[] = result.staticPagesPathId;
-      // const staticPagesPathName: string[] = result.staticPagesPathName;
-      
-      // setCountries(data);
-      // setStaticPagesPathId(staticPagesPathId);
-      // setStaticPagesPathName(staticPagesPathName);
+      // 
+      await axios.get(`/api/revalidate-public`);
+      router.reload();
    };
 
    return (
