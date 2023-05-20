@@ -7,6 +7,7 @@ import { Country } from '../types/country';
 import CountryCard from '../components/CountryCard';
 import PageCard from '../components/PageCard';
 import Header from '../components/Header';
+import Countdown from '../components/Countdown';
 
 const REVALIDATE_SSR_SECONDS = 20;
 
@@ -43,6 +44,18 @@ const Home: NextPage<Props> = ({
 
       return () => clearInterval(timer);
    }, [nextRefresh, router, secondsLeft]);
+
+   const handleRegenerate = async () => {
+      // const { data: result } = await axios.get('http://localhost:3001/api/refresh');
+      
+      // const data: Country[] = result.data;
+      // const staticPagesPathId: string[] = result.staticPagesPathId;
+      // const staticPagesPathName: string[] = result.staticPagesPathName;
+      
+      // setCountries(data);
+      // setStaticPagesPathId(staticPagesPathId);
+      // setStaticPagesPathName(staticPagesPathName);
+   };
 
    return (
       <div className='container mx-auto pt-8 p-5 md:px-0'>
@@ -102,57 +115,30 @@ const Home: NextPage<Props> = ({
 
             <div
                className='
-               flex 
-               flex-col 
-               items-center
-               order-first 
-               md:order-last
+               md:order-last 
+               order-first
             '
             >
-               <h2 className='text-xl mt-3 md:mt-6'>ISR Revalidate</h2>
-               <p
-                  className='
-                  text-sm 
-                  text-gray-500 
-                  md:w-[240px] 
-                  text-center
-               '
-               >
-                  Next revalidate in:
-               </p>
-
-               {secondsLeft !== null ? (
-                  <>
-                     <div
-                        className='
-                           mt-4
-                           text-4xl
-                           bg-orange-500
-                           text-center
-                           rounded-full 
-                           w-[90px] 
-                           h-[90px]
-                           flex
-                           items-center
-                           justify-center
-                        '
-                     >
-                        <p>{secondsLeft}</p>
-                     </div>
-                  </>
-               ) : (
-                  <div
+               <Countdown secondsLeft={secondsLeft} />
+               <div className='flex justify-center'>
+                  <button
+                     onClick={handleRegenerate}
                      className='
-                        flex 
-                        flex-col 
-                        justify-center 
-                        items-center 
-                        mt-10
+                        bg-transparent 
+                        border 
+                        border-green-500 
+                        text-green-500 
+                        hover:bg-green-500 
+                        hover:text-white
+                        py-1 
+                        px-3 
+                        rounded
+                        mt-6
                      '
                   >
-                     <PuffLoader size={60} color='#F87315' />
-                  </div>
-               )}
+                     Force Regeneration
+                  </button>
+               </div>
             </div>
          </div>
       </div>
@@ -187,9 +173,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
    nextRefresh.setSeconds(
       nextRefresh.getSeconds() + REVALIDATE_SSR_SECONDS + 1
    );
-
-   // await axios.get(`${process.env.API_URL}/seed`);
-   // console.log('Data Base Generated');
 
    return {
       props: {
