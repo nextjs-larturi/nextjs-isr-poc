@@ -3,12 +3,12 @@ import type { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { Country } from '../types/country';
-import CountryCard from '../components/CountryCard';
-import PageCard from '../components/PageCard';
 import Header from '../components/Header';
 import Countdown from '../components/Countdown';
-import ListStaticPages from '../components/ListStaticPages';
+import ListStaticPagesProd from '../components/ListStaticPagesProd';
 import ListCountries from '../components/ListCountries';
+import ListStaticPagesLocal from '../components/ListStaticPagesLocal';
+import { sortCountriesByName } from '../utils/sortCountries';
 
 const REVALIDATE_SSR_SECONDS = 30;
 
@@ -28,7 +28,7 @@ const Home: NextPage<Props> = ({
    const router = useRouter();
 
    const [secondsLeft, setSecondsLeft] = useState<number | null>(null);
-
+   
    useEffect(() => {
       const timer = setInterval(() => {
          let elapsedSeconds = Math.floor((nextRefresh - Date.now()) / 1000);
@@ -43,29 +43,32 @@ const Home: NextPage<Props> = ({
 
       return () => clearInterval(timer);
    }, [nextRefresh, router, secondsLeft]);
-
+   
    return (
       <div className='container mx-auto pt-8 p-5 md:px-0'>
          <Header showButtonAdminDb title='Next ISR PoC' />
 
          <div
             className='
-            flex 
-            flex-col
-            lg:flex-row 
-            justify-center
-            lg:gap-12
-            lg:mt-16
-            gap-2
-         '
+               flex 
+               flex-col
+               lg:flex-row 
+               justify-center
+               lg:gap-12
+               lg:mt-16
+               gap-2
+            '
          >
             {/* List of Countries */}
-            <ListCountries apiUrl={apiUrl} countries={countries} /> 
+            <ListCountries apiUrl={apiUrl} countries={sortCountriesByName(countries)} />
 
-            {/* List of static pages */}
-            <ListStaticPages staticPagesPathName={staticPagesPathName} />
+            {/* List of StaticsPats (en local puedo leer el directorio .next/server/pages) */}
+            {process.env.NEXT_PUBLIC_ENVIRONMENT === 'development' ? (
+               <ListStaticPagesLocal />
+            ) : (
+               <ListStaticPagesProd staticPagesPathName={staticPagesPathName} />
+            )}
 
-            {/* Countdown */}
             <div className='md:order-last order-first'>
                <Countdown secondsLeft={secondsLeft} />
             </div>
@@ -84,9 +87,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
    data.map((country) => {
       staticPagesPathName.push(
          `.next/server/pages/country/${country.name.toLowerCase()}.html`
-      );
-      staticPagesPathName.push(
-         `.next/server/pages/country/${country.name.toLowerCase()}.json`
       );
    });
 

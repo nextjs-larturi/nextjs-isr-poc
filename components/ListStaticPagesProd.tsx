@@ -5,7 +5,7 @@ interface ListStaticPagesProps {
     staticPagesPathName: string[];
 }
 
-const ListStaticPages: React.FC<ListStaticPagesProps> = ({ staticPagesPathName }) => {
+const ListStaticPagesProd: React.FC<ListStaticPagesProps> = ({ staticPagesPathName }) => {
    return (
       <div>
          <h2 className='text-xl mt-6'>Static Pages</h2>
@@ -19,4 +19,4 @@ const ListStaticPages: React.FC<ListStaticPagesProps> = ({ staticPagesPathName }
    );
 };
 
-export default ListStaticPages;
+export default ListStaticPagesProd;
