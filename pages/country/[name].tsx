@@ -14,7 +14,11 @@ interface Props {
 const CountryByNamePage: NextPage<Props> = ({ country, apiUrl }) => {
    return (
       <div className='container mx-auto px-4 pt-8'>
-         <Header showButtonAdminDb title='Next ISR PoC' />
+         <Header 
+            showButtonAdminDb 
+            title='Next ISR PoC' 
+            subtitle='Incremental Static Regeneration' 
+         />
 
          <div className='flex flex-col justify-center'>
             <h2 className='text-xl mt-6'>Country By Name</h2>

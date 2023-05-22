@@ -1,13 +1,21 @@
 import React from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 interface Props {
    showButtonAdminDb?: boolean;
    title: string;
+   subtitle: string;
 }
 
-const Header: NextPage<Props> = ({showButtonAdminDb, title}) => {
+const Header: NextPage<Props> = ({showButtonAdminDb, title, subtitle}) => {
+
+   const router = useRouter();
+
+   const handleReload = () => {
+      router.push('/');
+   }
 
     return (
       <>
@@ -17,7 +25,10 @@ const Header: NextPage<Props> = ({showButtonAdminDb, title}) => {
          </Head>
 
          <div className='flex flex-row justify-between mb-8'>
-            <h1 className='text-3xl'>{title}</h1>
+            <div onClick={handleReload} className='cursor-pointer'>
+               <h1 className='text-3xl'>{title}</h1>
+               <h2 className='text-sm text-gray-300'>{subtitle}</h2>
+            </div>
 
             {showButtonAdminDb && (
                <div className='mt-2'>

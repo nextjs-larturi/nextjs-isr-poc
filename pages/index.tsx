@@ -46,7 +46,11 @@ const Home: NextPage<Props> = ({
    
    return (
       <div className='container mx-auto pt-8 p-5 md:px-0'>
-         <Header showButtonAdminDb title='Next ISR PoC' />
+         <Header 
+            showButtonAdminDb 
+            title='Next.js ISR'
+            subtitle='Incremental Static Regeneration'
+         />
 
          <div
             className='

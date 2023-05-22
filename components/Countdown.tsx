@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { PuffLoader } from 'react-spinners';
@@ -11,7 +11,10 @@ const Countdown: React.FC<PropsCountdown> = ({ secondsLeft }) => {
 
    const router = useRouter();
 
+   const [isRegenerating, setIsRegenerating] = useState(false);
+
    const handleRegenerate = async () => {
+      setIsRegenerating(true)
       await axios.get(`/api/revalidate?secret=diypkqZN35OIteEzpszu`);
    
       setTimeout(() => {
@@ -42,21 +45,21 @@ const Countdown: React.FC<PropsCountdown> = ({ secondsLeft }) => {
                Next revalidate in:
             </p>
 
-            {secondsLeft !== null ? (
+            {secondsLeft !== null && !isRegenerating ? (
                <>
                   <div
-                     className='
-                           mt-4
-                           text-4xl
-                           bg-orange-500
-                           text-center
-                           rounded-full 
-                           w-[90px] 
-                           h-[90px]
-                           flex
-                           items-center
-                           justify-center
-                        '
+                     className={`
+                        mt-4
+                        text-4xl
+                        ${secondsLeft >= 20 ? 'bg-green-500' : secondsLeft >= 10 ? 'bg-orange-500' : 'bg-red-500'}
+                        text-center
+                        rounded-full 
+                        w-[80px] 
+                        h-[80px]
+                        flex
+                        items-center
+                        justify-center
+                     `}
                   >
                      <p>{secondsLeft}</p>
                   </div>
@@ -68,10 +71,10 @@ const Countdown: React.FC<PropsCountdown> = ({ secondsLeft }) => {
                         flex-col 
                         justify-center 
                         items-center 
-                        mt-10
+                        mt-4
                      '
                >
-                  <PuffLoader size={60} color='#F87315' />
+                  <PuffLoader size={80} color='#2463EB' />
                </div>
             )}
          </div>
@@ -79,6 +82,7 @@ const Countdown: React.FC<PropsCountdown> = ({ secondsLeft }) => {
          <div className='flex justify-center'>
             <button
                onClick={handleRegenerate}
+               disabled={isRegenerating}
                className='
                         bg-transparent 
                         border 
@@ -92,7 +96,7 @@ const Countdown: React.FC<PropsCountdown> = ({ secondsLeft }) => {
                         mt-6
                      '
             >
-               Force Regeneration
+               { isRegenerating ? 'Regenerating...' : 'Force Regeneration'}
             </button>
          </div>
       </>
