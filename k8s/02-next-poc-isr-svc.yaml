@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: next-poc-isr-svc
+spec:
+  selector:
+    app: next-poc-isr
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000

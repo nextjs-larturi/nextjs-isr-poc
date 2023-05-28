@@ -12,6 +12,9 @@ interface Props {
 
 const AdminPage: NextPage<Props> = ({ apiUrl = '' }) => {
 
+
+   console.log(apiUrl);
+
    const router = useRouter();
 
    const [countries, setCountries] = useState<Country[]>([]);

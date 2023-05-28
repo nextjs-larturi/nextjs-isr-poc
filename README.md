@@ -1,16 +1,6 @@
-# Next.js ISR PoC
+# Next.js ISR PoC | Client Next.js
 
-# Server Node.js
-
-<https://github.com/larturi/next-isr-poc-server-node>
-
-```bash
-    npm install
-
-    npm start --port=3000
-```
-
-# Client Next.js
+# Local
 
 <https://github.com/larturi/next-isr-poc>
 
@@ -18,13 +8,40 @@
 
 ```bash
     yarn
-
     yarn build
-
     yarn start --port=3001
 ```
 
-#### To test the revalidate, you can edit the countries in the page: <http://localhost:3001/admin>
+# Prod Docker
 
+### Important: Create the .env file with this variables and make sure you started the serve first:
 
-#### To regenerate the countries database, you can use the seed: <http://localhost:3000/seed>
+```bash
+    API_URL="http://poc-isr-api.larturi.local:30000"
+    CLIENT_URL="http://next-poc-isr.larturi.local:30000"
+    MY_SECRET_TOKEN="diypkqZN35OIteEzpszu"
+```
+
+```bash
+    docker build -t larturi/next-isr-poc:1.0 .
+    docker push larturi/next-isr-poc:1.0
+
+    cd k8s/ingress
+    kubectl apply -f .
+    cd ..
+    kubectl apply -f 01-next-poc-isr-deployment.yaml
+    kubectl apply -f 02-next-poc-isr-svc.yaml
+    kubectl apply -f 03-ingress.yaml
+    
+    # Optional, only to test the container
+    docker run -p 3001:3000 --name next-isr-poc larturi/next-isr-poc:1.0
+```
+
+### Add in etc/hosts
+
+```bash
+127.0.0.1   next-poc-isr.larturi.local
+```
+
+<http://next-poc-isr.larturi.local:30000>
+
