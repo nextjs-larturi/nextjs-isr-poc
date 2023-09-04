@@ -17,7 +17,7 @@
 ### Important: Create the .env file with this variables and make sure you started the serve first:
 
 ```bash
-    API_URL="http://poc-isr-api.larturi.local:30000"
+    API_URL="https://next-isr-poc-server-api.vercel.app"
     CLIENT_URL="http://next-poc-isr.larturi.local:30000"
     MY_SECRET_TOKEN="diypkqZN35OIteEzpszu"
 ```
