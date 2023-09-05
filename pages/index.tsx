@@ -9,6 +9,7 @@ import ListStaticPagesProd from '../components/ListStaticPagesProd';
 import ListCountries from '../components/ListCountries';
 import ListStaticPagesLocal from '../components/ListStaticPagesLocal';
 import { sortCountriesByName } from '../utils/sortCountries';
+import LogServerApp from '../components/LogServerApp';
 
 const REVALIDATE_SSR_SECONDS = 30;
 
@@ -51,6 +52,11 @@ const Home: NextPage<Props> = ({
             title='Next.js ISR'
             subtitle='Incremental Static Regeneration'
          />
+
+         <div>
+            {/* Log Servidor App */}
+            <LogServerApp />
+         </div>
 
          <div
             className='
