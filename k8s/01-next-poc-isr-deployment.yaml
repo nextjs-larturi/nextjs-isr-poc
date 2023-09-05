@@ -20,7 +20,7 @@ spec:
         - containerPort: 3000
         env:
         - name: API_URL
-          value: http://poc-isr-api.larturi.local:30000
+          value: https://next-isr-poc-server-api.vercel.app
         resources:
           requests:
             memory: "128Mi"
