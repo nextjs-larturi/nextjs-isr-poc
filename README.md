@@ -23,8 +23,8 @@
 ```
 
 ```bash
-    docker build -t larturi/next-isr-poc:1.0 .
-    docker push larturi/next-isr-poc:1.0
+    docker build -t larturi/next-isr-poc:latest .
+    docker push larturi/next-isr-poc:latest
 
     cd k8s/ingress
     kubectl apply -f .

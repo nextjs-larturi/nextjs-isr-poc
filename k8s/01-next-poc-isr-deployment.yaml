@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: next-isr-poc
-        image: larturi/next-isr-poc:1.0
+        image: larturi/next-isr-poc:latest
         imagePullPolicy: IfNotPresent        
         ports:
         - containerPort: 3000
