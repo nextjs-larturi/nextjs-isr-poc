@@ -1,5 +1,7 @@
 # Next.js ISR PoC | Client Next.js
 
+- Next 13.4.2
+
 # Local
 
 <https://github.com/larturi/next-isr-poc>
